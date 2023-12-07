@@ -1,0 +1,12 @@
+---
+title: "statistical_learning"
+output: github_document
+---
+
+```{r}
+library(tidyverse)
+library(glmnet)
+
+set.seed(11)
+```
+
