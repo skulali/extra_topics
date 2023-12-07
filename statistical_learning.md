@@ -134,3 +134,43 @@ lasso_cv |>
 ```
 
 ![](statistical_learning_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+
+## Penguins
+
+``` r
+library(palmerpenguins)
+```
+
+    ## Warning: package 'palmerpenguins' was built under R version 4.3.2
+
+``` r
+data("penguins")
+
+penguins |> 
+  ggplot(aes(x = bill_length_mm, y = flipper_length_mm, color = species)) +
+  geom_point()
+```
+
+    ## Warning: Removed 2 rows containing missing values (`geom_point()`).
+
+![](statistical_learning_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+
+``` r
+penguins =
+  penguins |> 
+  select(species, bill_length_mm, flipper_length_mm) |> 
+  drop_na()
+
+kmeans_fit =
+  penguins |> 
+  select(-species) |>
+  scale() |> 
+  kmeans(centers = 3)
+
+penguins |> 
+  broom::augment(kmeans_fit, data = _) |>  
+  ggplot(aes(x = bill_length_mm, y = flipper_length_mm, color = .cluster)) +
+  geom_point()
+```
+
+![](statistical_learning_files/figure-gfm/unnamed-chunk-8-2.png)<!-- -->
